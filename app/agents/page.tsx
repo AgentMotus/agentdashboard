@@ -8,16 +8,15 @@ const AGENTS = [
 export default function AgentsPage() {
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl font-bold">Agents</h2>
-        <button className="px-4 py-2 bg-accent hover:bg-accent-hover text-white text-sm font-medium rounded-lg transition-colors">
-          + Register Agent
-        </button>
+      <div className="mb-6 flex items-center justify-between">
+        <h2 className="text-3xl font-bold text-white">Agents</h2>
+        <button className="ui-btn ui-btn-primary">+ Register Agent</button>
       </div>
-      <div className="bg-panel border border-border rounded-xl overflow-hidden">
+
+      <div className="ui-surface overflow-hidden">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-border text-muted text-left">
+            <tr className="border-b border-white/10 text-left text-white/60">
               <th className="px-5 py-3 font-medium">Name</th>
               <th className="px-5 py-3 font-medium">Status</th>
               <th className="px-5 py-3 font-medium">Capability</th>
@@ -27,19 +26,26 @@ export default function AgentsPage() {
           </thead>
           <tbody>
             {AGENTS.map((a) => (
-              <tr key={a.name} className="border-b border-border/50 hover:bg-white/[0.02]">
-                <td className="px-5 py-3 text-white font-medium">{a.name}</td>
+              <tr key={a.name} className="border-b border-white/5 hover:bg-white/[0.02]">
+                <td className="px-5 py-3 font-medium text-white">{a.name}</td>
                 <td className="px-5 py-3">
-                  <span className={`inline-flex items-center gap-1.5 text-xs font-medium px-2 py-0.5 rounded-full ${
-                    a.status === 'active' ? 'bg-green-500/10 text-green-400' : 'bg-yellow-500/10 text-yellow-400'
-                  }`}>
-                    <span className={`w-1.5 h-1.5 rounded-full ${a.status === 'active' ? 'bg-green-400' : 'bg-yellow-400'}`} />
+                  <span
+                    className="ui-badge"
+                    style={{
+                      background: a.status === 'active' ? 'rgba(34, 197, 94, 0.15)' : 'rgba(245, 158, 11, 0.15)',
+                      color: a.status === 'active' ? 'var(--success)' : 'var(--warning)',
+                    }}
+                  >
+                    <span
+                      className="h-1.5 w-1.5 rounded-full"
+                      style={{ background: a.status === 'active' ? 'var(--success)' : 'var(--warning)' }}
+                    />
                     {a.status}
                   </span>
                 </td>
-                <td className="px-5 py-3 text-muted">{a.capability}</td>
-                <td className="px-5 py-3 text-muted">{a.runs}</td>
-                <td className="px-5 py-3 text-muted">{a.lastRun}</td>
+                <td className="px-5 py-3 text-white/70">{a.capability}</td>
+                <td className="px-5 py-3 text-white/70">{a.runs}</td>
+                <td className="px-5 py-3 text-white/70">{a.lastRun}</td>
               </tr>
             ))}
           </tbody>

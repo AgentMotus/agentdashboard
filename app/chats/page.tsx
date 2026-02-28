@@ -7,60 +7,64 @@ const THREADS = [
 
 const MESSAGES = [
   { author: 'Gerry', type: 'human' as const, text: 'Hey, ya quedó el scaffold del dashboard?', time: '5:30 PM' },
-  { author: 'AgentMotus', type: 'agent' as const, text: 'Sí, ya hice push con el one-shot prompt ejecutado. Scaffold completo en main.', time: '5:31 PM' },
+  {
+    author: 'AgentMotus',
+    type: 'agent' as const,
+    text: 'Sí, ya hice push con el one-shot prompt ejecutado. Scaffold completo en main.',
+    time: '5:31 PM',
+  },
   { author: 'Gerry', type: 'human' as const, text: 'Perfecto. Ahora necesito el frontend con sidebar y topbar.', time: '5:32 PM' },
   { author: 'AgentMotus', type: 'agent' as const, text: 'En eso estoy. Dame unos minutos y lo subo.', time: '5:33 PM' },
 ];
 
 export default function ChatsPage() {
   return (
-    <div className="flex gap-4 h-[calc(100vh-5rem)]">
-      <div className="w-72 bg-panel border border-border rounded-xl overflow-y-auto flex-shrink-0">
-        <div className="p-4 border-b border-border">
-          <h3 className="font-semibold text-sm">Threads</h3>
+    <div className="flex h-[calc(100vh-7rem)] gap-4">
+      <aside className="ui-surface w-80 flex-shrink-0 overflow-y-auto">
+        <div className="border-b border-white/10 p-4">
+          <h3 className="text-base font-semibold text-white">Threads</h3>
         </div>
         {THREADS.map((t) => (
-          <div key={t.id} className="px-4 py-3 border-b border-border/50 hover:bg-white/[0.02] cursor-pointer">
-            <div className="flex justify-between items-center mb-1">
+          <div key={t.id} className="cursor-pointer border-b border-white/5 px-4 py-3 transition-colors hover:bg-white/[0.03]">
+            <div className="mb-1 flex items-center justify-between">
               <span className="text-sm font-medium text-white">{t.title}</span>
-              {t.unread > 0 && (
-                <span className="bg-accent text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">{t.unread}</span>
-              )}
+              {t.unread > 0 && <span className="ui-badge bg-brand-blue text-black">{t.unread}</span>}
             </div>
-            <p className="text-xs text-muted truncate">{t.lastMessage}</p>
-            <p className="text-[10px] text-muted/60 mt-0.5">{t.time}</p>
+            <p className="truncate text-xs text-white/70">{t.lastMessage}</p>
+            <p className="mt-0.5 text-xs text-white/50">{t.time}</p>
           </div>
         ))}
-      </div>
-      <div className="flex-1 bg-panel border border-border rounded-xl flex flex-col">
-        <div className="p-4 border-b border-border">
-          <h3 className="font-semibold text-sm">#general</h3>
+      </aside>
+
+      <section className="ui-surface flex flex-1 flex-col">
+        <div className="border-b border-white/10 p-4">
+          <h3 className="text-base font-semibold text-white">#general</h3>
         </div>
-        <div className="flex-1 overflow-y-auto p-4 space-y-4">
+        <div className="flex-1 space-y-4 overflow-y-auto p-4">
           {MESSAGES.map((m, i) => (
             <div key={i} className={`flex flex-col ${m.type === 'agent' ? 'items-start' : 'items-end'}`}>
-              <div className={`max-w-[70%] px-4 py-2.5 rounded-xl text-sm ${
-                m.type === 'agent' ? 'bg-accent/10 text-gray-200' : 'bg-white/10 text-gray-200'
-              }`}>
-                <p className="text-xs font-medium text-muted mb-1">{m.author} · {m.time}</p>
+              <div
+                className="max-w-[72%] rounded-lg px-4 py-3 text-sm"
+                style={{
+                  background: m.type === 'agent' ? 'rgba(147, 51, 234, 0.2)' : 'rgba(255, 255, 255, 0.12)',
+                  color: 'var(--text-primary)',
+                }}
+              >
+                <p className="mb-1 text-xs text-white/70">
+                  {m.author} · {m.time}
+                </p>
                 {m.text}
               </div>
             </div>
           ))}
         </div>
-        <div className="p-4 border-t border-border">
+        <div className="border-t border-white/10 p-4">
           <div className="flex gap-2">
-            <input
-              type="text"
-              placeholder="Type a message..."
-              className="flex-1 bg-surface border border-border rounded-lg px-4 py-2 text-sm text-white placeholder-muted focus:outline-none focus:border-accent"
-            />
-            <button className="px-4 py-2 bg-accent hover:bg-accent-hover text-white text-sm font-medium rounded-lg transition-colors">
-              Send
-            </button>
+            <input type="text" placeholder="Type a message..." className="ui-input" />
+            <button className="ui-btn ui-btn-primary">Send</button>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }

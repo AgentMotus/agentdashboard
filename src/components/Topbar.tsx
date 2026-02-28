@@ -2,7 +2,7 @@
 import { usePathname } from 'next/navigation';
 
 const TITLES: Record<string, string> = {
-  '/home': 'Home',
+  '/home': 'Overview',
   '/agents': 'Agents',
   '/tasks': 'Tasks',
   '/chats': 'Chats',
@@ -12,12 +12,13 @@ const TITLES: Record<string, string> = {
 export default function Topbar() {
   const pathname = usePathname();
   const title = TITLES[pathname] ?? 'AgentDashboard';
+
   return (
-    <header className="fixed top-0 left-56 right-0 h-14 bg-panel/80 backdrop-blur border-b border-border flex items-center justify-between px-6 z-20">
-      <h1 className="text-base font-semibold text-white">{title}</h1>
+    <header className="fixed left-60 right-0 top-0 z-20 flex h-16 items-center justify-between border-b border-white/10 bg-black/55 px-6 backdrop-blur-glass">
+      <h1 className="text-[1.125rem] font-heading font-semibold text-white">{title}</h1>
       <div className="flex items-center gap-4">
-        <span className="text-xs text-muted">Motus-DAO</span>
-        <div className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-xs font-bold text-accent">
+        <span className="text-sm text-white/65">Execution-first control plane</span>
+        <div className="inline-flex h-11 min-w-11 items-center justify-center rounded-full border border-white/20 bg-white/5 px-3 text-sm font-semibold text-white">
           AM
         </div>
       </div>
